@@ -28,6 +28,13 @@ packages = ["."]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# tools/ holds gate scripts vendored verbatim from roxabi-plugins/plugins/dev-core/tools.
+# Formatting them here rewrites upstream bytes and recreates the drift ssot-verify V18
+# reports, so the copy is excluded rather than reformatted.
+extend-exclude = ["tools/"]
+# Explicit paths bypass exclude unless force-exclude is set; the pre-commit hook
+# passes staged filenames explicitly, so without this the exclusion is inert there.
+force-exclude = true
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
